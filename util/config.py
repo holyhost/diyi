@@ -1,0 +1,4 @@
+class SqlConfig:
+    SQLALCHEMY_DATABASE_URI = "mysql://qaq:123456@127.0.0.1:3306/diyi"
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_ECHO = True
