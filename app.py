@@ -50,14 +50,9 @@ def home(aname):
 @app.route('/router/add')
 def add_router():
     # person = Person(router="dlrb",starttime='2020-02-02 02:02:02',boss="周先生")
-    # person1 = Person(router="cym",starttime='2017-02-28 22:52:02',boss="小周",name="小陈")
-    # person2 = Person(router="陈玉梦",starttime='2017-02-28 22:52:02',boss="周先生",name="梦")
-    # person3 = Person(router="李瑞春",starttime='2018-09-18 12:52:02',boss="康先生",name="春")
-    # db.session.add(person1)
-    # db.session.add(person2)
-    # db.session.add(person3)
+    # db.session.add(person)
     # db.session.commit()
-    # return "success:{}".format(person1.boss)
+    # return "success:{}".format(person.boss)
     pass
 
 @app.route('/get')
