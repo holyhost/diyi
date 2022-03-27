@@ -1,3 +1,6 @@
 ./Lib
 ./Include
-_pycache_
+*/_pycache_
+user/__pycache__/views.cpython-310.pyc
+util/__pycache__/config.cpython-310.pyc
+user/__pycache__/__init__.cpython-310.pyc

@@ -1,3 +1,4 @@
+from sys import prefix
 from flask import Flask, render_template,request
 from flask_sqlalchemy import SQLAlchemy
 from util.person_cache import Pcache
@@ -5,14 +6,20 @@ from util.config import SqlConfig
 
 
 app = Flask(__name__)
+from user import user_bp
+app.register_blueprint(user_bp,url_prefix="/user")
+
 pcache = Pcache(100)
 
 
 app.config.from_object(SqlConfig)
 db = SQLAlchemy(app)
 keywords = ['index','index.php','index.html']
+ignores = ['favicon.ico']
 
+# 初始化模型
 from model.person import Person
+from model.user import User
 
 
 @app.route('/')
@@ -20,9 +27,26 @@ def index():
     
     return render_template('./index.html')
 
+@app.route('/router/add')
+def add_router():
+    # person = Person(router="dlrb",starttime='2020-02-02 02:02:02',boss="周先生")
+    # db.session.add(person)
+    # db.session.commit()
+    # return "success:{}".format(person.boss)
+    pass
+
+@app.route('/get')
+def get():
+    list = Person.query.all()
+    print(list)
+    return list[1].router
+
 @app.route('/<aname>')
 def home(aname):
-    print(aname)
+
+    # 有的图标之类的关键字直接忽略
+    if aname in ignores:
+        return app.send_static_file(aname)
     # 1. 判断aname是否是关键字，如果是index等字眼，返回首页
     if aname in keywords:
         return render_template('./index.html')
@@ -45,18 +69,3 @@ def home(aname):
     if person:
         return render_template('./love.html',airen=person.name,boss=person.boss,starttime=person.starttime)
     return render_template('./index.html')
-
-
-@app.route('/router/add')
-def add_router():
-    # person = Person(router="dlrb",starttime='2020-02-02 02:02:02',boss="周先生")
-    # db.session.add(person)
-    # db.session.commit()
-    # return "success:{}".format(person.boss)
-    pass
-
-@app.route('/get')
-def get():
-    list = Person.query.all()
-    print(list)
-    return list[1].router
